@@ -2,7 +2,7 @@ CREATE TABLE employees_hr (
     emp_no              INT PRIMARY KEY,
     gender              TEXT,
     marital_status      TEXT,
-    age_band            TEXT,           
+    age_band            TEXT,            
     age                 SMALLINT,
     department          TEXT,
     education           TEXT,           
@@ -16,59 +16,50 @@ CREATE TABLE employees_hr (
     active_employee     SMALLINT 
 	);
 
-	select * from employees_hr;
-/*
-structure of any sql queries follows this fundamental way:
-select
-from 
-where, ***etc***
-group by
-order by
-limit
-*/
-	-- count number of employees in each department --
+select * from employees_hr;
+
+--Count number of employees in each department --
 select department, count (*) as employee_count
 from employees_hr
 group by department;
 
--- calculate the average age for each department --
+--Calculate the average age for each department --
 select department, avg(age) as average_age
 from employees_hr
-group by department
+group by department;
 
--- count number of married and unmarried employees in the company --
+--Count number of married and unmarried employees in the company --
 select marital_status, count(*) as marital_cunt
 from employees_hr
-group by marital_status
+group by marital_status;
 
--- the most common job roles in each department ---
+--The most common job roles in each department --
 select department, job_role, count(*) as role_count
 from employees_hr
 group by department, job_role
-order by department, job_role
-desc;
+order by department asc, job_role asc;
 
--- calculate the average job satisfaction for each educational level--
+--Calculate the average job satisfaction for each educational level--
 select education, avg(job_satisfaction) as avg_satisfaction
 from employees_hr
 group by education;
 
-
--- identify the departments with the highest and lowest average job satisfaction --
+--Identify the departments with the highest and lowest average job satisfaction --
 select department, avg(job_satisfaction) as avg_satisfaction
 from employees_hr
 group by department
 order by avg_satisfaction desc, department;
 
--- find the education level with the highest average job satisfaction among employees who travel frequently--
-select education, AVG(job_satisfaction) AS average_satisfaction
+--Find the education level with the highest average job satisfaction among employees who travel frequently--
+select education, business_travel, AVG(job_satisfaction) AS average_satisfaction
 FROM employees_hr
 WHERE business_travel = 'Travel_Frequently'
-GROUP BY education
+GROUP BY education, business_travel
 ORDER BY average_satisfaction DESC;
 
-
-select * from employees_hr
-
-
+--Marital status count by gender
+select gender, marital_status, count(marital_status) as numb
+from employees_hr 
+group by gender, marital_status
+order by gender, marital_status desc;
 
